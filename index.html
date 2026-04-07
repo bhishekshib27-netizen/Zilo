@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zilo — Trusted Shopping, Simplified</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: rgba(15, 23, 42, 0.08);
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --blue: #2563eb;
+      --red: #d62828;
+      --yellow: #f4c430;
+      --green: #0f766e;
+      --dark: #0b0b0b;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --container: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(214, 40, 40, 0.06), transparent 24%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 55%, #f5f7fb 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.04) 0, rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(135deg, transparent 0 48%, rgba(37, 99, 235, 0.028) 49%, transparent 50% 100%);
+      background-size: 24px 24px, 100% 100%;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .navbar-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 80px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.35rem;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), #60a5fa);
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -42% auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .brand span:last-child { color: var(--dark); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--text);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .hero {
+      padding: 46px 0 40px;
+    }
+
+    .hero-shell {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), var(--yellow));
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      max-width: 720px;
+    }
+
+    .hero h1 .accent {
+      color: var(--blue);
+      display: block;
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      max-width: 620px;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .meta-pill {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 560px;
+    }
+
+    .hero-card,
+    .floating-card,
+    .product-card,
+    .category-card,
+    .trust-card,
+    .stat-card,
+    .newsletter,
+    .seller-banner {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      width: 100%;
+      max-width: 460px;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .mini-product {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border-radius: 20px;
+      padding: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+    }
+
+    .mini-image {
+      border-radius: 16px;
+      height: 120px;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(214, 40, 40, 0.08)),
+        linear-gradient(180deg, #eef5ff, #fef2f2);
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-image::before {
+      content: "";
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.55);
+      top: 24px;
+      left: 22px;
+      transform: rotate(20deg);
+    }
+
+    .mini-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .mini-sub {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .floating-card {
+      position: absolute;
+      border-radius: 22px;
+      padding: 16px 18px;
+    }
+
+    .floating-top {
+      left: 0;
+      top: 110px;
+      max-width: 220px;
+    }
+
+    .floating-bottom {
+      left: 40px;
+      bottom: 18px;
+      max-width: 250px;
+    }
+
+    .floating-card h4 {
+      margin: 0 0 8px;
+      font-size: 0.96rem;
+    }
+
+    .floating-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 38px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .trust-card {
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(244, 196, 48, 0.16));
+    }
+
+    .trust-card h3,
+    .category-card h3,
+    .product-card h3,
+    .stat-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .trust-card p,
+    .category-card p,
+    .product-card p,
+    .stat-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.92rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .category-card {
+      border-radius: 26px;
+      padding: 18px;
+      min-height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::after {
+      content: "";
+      position: absolute;
+      right: -35px;
+      bottom: -35px;
+      width: 140px;
+      height: 140px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(214, 40, 40, 0.08));
+      transform: rotate(18deg);
+    }
+
+    .category-emoji {
+      width: 62px;
+      height: 62px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-size: 1.45rem;
+      background: rgba(15, 23, 42, 0.04);
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .product-card {
+      border-radius: 26px;
+      padding: 16px;
+    }
+
+    .product-image {
+      border-radius: 22px;
+      height: 220px;
+      margin-bottom: 14px;
+      background: linear-gradient(180deg, #eff6ff, #fef2f2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image::before,
+    .product-image::after {
+      content: "";
+      position: absolute;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.55);
+    }
+
+    .product-image::before {
+      width: 120px;
+      height: 140px;
+      left: 28px;
+      top: 34px;
+      transform: rotate(-14deg);
+    }
+
+    .product-image::after {
+      width: 96px;
+      height: 96px;
+      right: 28px;
+      bottom: 26px;
+      transform: rotate(12deg);
+    }
+
+    .product-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .seller-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--blue);
+      background: rgba(37, 99, 235, 0.08);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 700;
+      margin: 10px 0 14px;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .product-actions .btn {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+    }
+
+    .why-grid,
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .stat-card {
+      border-radius: 26px;
+      padding: 26px;
+    }
+
+    .big-stat {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      margin-bottom: 10px;
+    }
+
+    .seller-banner {
+      border-radius: 34px;
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      background:
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 30%),
+        linear-gradient(135deg, #0f172a 0%, #111827 100%);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+    }
+
+    .seller-banner p {
+      color: rgba(255,255,255,0.75);
+      max-width: 700px;
+      line-height: 1.75;
+      margin: 10px 0 0;
+    }
+
+    .newsletter {
+      border-radius: 30px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .newsletter p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .newsletter input {
+      flex: 1;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      background: white;
+      border-radius: 999px;
+      padding: 15px 18px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .newsletter input:focus {
+      border-color: rgba(37, 99, 235, 0.36);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
+    footer {
+      padding: 18px 0 42px;
+    }
+
+    .footer-shell {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+      padding-top: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-shell,
+      .newsletter,
+      .seller-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 640px;
+      }
+
+      .category-grid,
+      .product-grid,
+      .trust-strip,
+      .why-grid,
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        min-height: 72px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 26px;
+      }
+
+      .hero-visual {
+        min-height: 620px;
+      }
+
+      .hero-card {
+        position: relative;
+        right: auto;
+        top: auto;
+        max-width: 100%;
+      }
+
+      .floating-top,
+      .floating-bottom {
+        position: relative;
+        left: auto;
+        top: auto;
+        bottom: auto;
+        margin-top: 16px;
+        max-width: 100%;
+      }
+
+      .trust-strip,
+      .category-grid,
+      .product-grid,
+      .why-grid,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .newsletter-form,
+      .hero-cta,
+      .product-actions,
+      .nav-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar-wrap">
+    <div class="container">
+      <nav class="navbar">
+        <a href="#" class="brand">
+          <div class="brand-mark">Z</div>
+          <span>Zilo</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#shop">Shop</a>
+          <a href="#categories">Categories</a>
+          <a href="#why-zilo">Why Zilo</a>
+          <a href="#sell">Sell on Zilo</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="#" class="btn btn-secondary">Sign In</a>
+          <a href="#shop" class="btn btn-primary">Start Shopping</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Built for modern commerce in Mauritius
+            </div>
+
+            <h1>
+              Trusted shopping
+              <span class="accent">for a new generation</span>
+            </h1>
+
+            <p>
+              Discover curated products from verified sellers across Mauritius on a marketplace designed for clarity, confidence, and reliable delivery.
+            </p>
+
+            <div class="hero-cta">
+              <a href="#shop" class="btn btn-primary">Shop Now</a>
+              <a href="#sell" class="btn btn-secondary">Become a Seller</a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-pill">🇲🇺 Island-wide visibility</div>
+              <div class="meta-pill">✔ Verified Mauritian sellers</div>
+              <div class="meta-pill">🚚 Coordinated delivery</div>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-card">
+              <div class="hero-card-top">
+                <div>
+                  <div class="mini-badge">Verified Collection</div>
+                </div>
+                <strong style="font-size:0.92rem;">Mauritius</strong>
+              </div>
+
+              <div class="hero-grid">
+                <div class="mini-product">
+                  <div class="mini-image"></div>
+                  <div class="mini-title">Island Linen Set</div>
+                  <div class="mini-sub">Curated local fashion</div>
+                </div>
+                <div class="mini-product">
+                  <div class="mini-image"></div>
+                  <div class="mini-title">Minimal Carry Bag</div>
+                  <div class="mini-sub">Verified seller item</div>
+                </div>
+                <div class="mini-product">
+                  <div class="mini-image"></div>
+                  <div class="mini-title">Home Accent Piece</div>
+                  <div class="mini-sub">Modern tropical home</div>
+                </div>
+                <div class="mini-product">
+                  <div class="mini-image"></div>
+                  <div class="mini-title">Daily Tech Essential</div>
+                  <div class="mini-sub">Fast-moving category</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-card floating-top">
+              <h4>Verified Mauritian Seller</h4>
+              <p>Structured onboarding and trust-first seller approval built into the platform.</p>
+            </div>
+
+            <div class="floating-card floating-bottom">
+              <h4>Designed with local identity</h4>
+              <p>Clean global UI standards with subtle Mauritian tones, delivery context, and marketplace relevance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="trust-strip">
+          <div class="trust-card">
+            <div class="trust-icon">✔</div>
+            <h3>Verified Sellers</h3>
+            <p>Every seller is reviewed before listing so the marketplace stays credible and reliable.</p>
+          </div>
+          <div class="trust-card">
+            <div class="trust-icon">🔒</div>
+            <h3>Secure Checkout</h3>
+            <p>Built for clarity and confidence with cleaner payment flows and less buying friction.</p>
+          </div>
+          <div class="trust-card">
+            <div class="trust-icon">🚚</div>
+            <h3>Reliable Delivery</h3>
+            <p>Structured local coordination gives customers a more predictable delivery experience.</p>
+          </div>
+          <div class="trust-card">
+            <div class="trust-icon">🇲🇺</div>
+            <h3>Built for Mauritius</h3>
+            <p>Local-first marketplace design, island-wide relevance, and a more contextual shopping journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Explore curated categories</h2>
+            <p>From fashion and accessories to tech and everyday essentials, Zilo brings structured shopping to categories that matter most locally.</p>
+          </div>
+        </div>
+
+        <div class="category-grid">
+          <div class="category-card">
+            <div class="category-emoji">👕</div>
+            <h3>Fashion</h3>
+            <p>Modern apparel, elevated basics, and locally relevant styles designed for everyday wear.</p>
+          </div>
+          <div class="category-card">
+            <div class="category-emoji">👜</div>
+            <h3>Accessories</h3>
+            <p>Simple statement pieces, practical carry goods, and trusted lifestyle add-ons.</p>
+          </div>
+          <div class="category-card">
+            <div class="category-emoji">📱</div>
+            <h3>Electronics</h3>
+            <p>Smart everyday tech, useful gadgets, and product lines that move with demand.</p>
+          </div>
+          <div class="category-card">
+            <div class="category-emoji">🏡</div>
+            <h3>Home</h3>
+            <p>Comfort-focused essentials and modern pieces that fit local spaces and living.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Featured on Zilo</h2>
+            <p>Clean product presentation, clearer trust signals, and a more premium marketplace experience from the first click.</p>
+          </div>
+          <a href="#" class="btn btn-secondary">View All Products</a>
+        </div>
+
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-image"></div>
+            <div class="product-top">
+              <h3>Coastal Linen Shirt</h3>
+              <div class="price">Rs 1,290</div>
+            </div>
+            <p>Minimal island-inspired menswear with a cleaner premium feel.</p>
+            <div class="seller-badge">✔ Verified Mauritian Seller</div>
+            <div class="product-actions">
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image"></div>
+            <div class="product-top">
+              <h3>Structured Tote Bag</h3>
+              <div class="price">Rs 980</div>
+            </div>
+            <p>Everyday carry built for style, simplicity, and local lifestyle use.</p>
+            <div class="seller-badge">✔ Verified Mauritian Seller</div>
+            <div class="product-actions">
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image"></div>
+            <div class="product-top">
+              <h3>Desk Light Pro</h3>
+              <div class="price">Rs 1,850</div>
+            </div>
+            <p>Minimal desk utility for home workspaces and clean interiors.</p>
+            <div class="seller-badge">✔ Verified Mauritian Seller</div>
+            <div class="product-actions">
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image"></div>
+            <div class="product-top">
+              <h3>Daily Essentials Set</h3>
+              <div class="price">Rs 740</div>
+            </div>
+            <p>Practical essentials packaged for convenience, gifting, or quick delivery.</p>
+            <div class="seller-badge">✔ Verified Mauritian Seller</div>
+            <div class="product-actions">
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why-zilo">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Why shoppers choose Zilo</h2>
+            <p>Zilo is built to reduce uncertainty. Better onboarding, cleaner product presentation, and stronger trust signals create a smoother marketplace experience.</p>
+          </div>
+        </div>
+
+        <div class="why-grid">
+          <div class="stat-card">
+            <div class="big-stat">Trust</div>
+            <h3>Structured seller approval</h3>
+            <p>Listings are backed by a stronger verification process so customers shop with more confidence.</p>
+          </div>
+          <div class="stat-card">
+            <div class="big-stat">Clarity</div>
+            <h3>Cleaner user journey</h3>
+            <p>A less cluttered browsing flow helps users focus on products, pricing, and real buying decisions.</p>
+          </div>
+          <div class="stat-card">
+            <div class="big-stat">Local</div>
+            <h3>Built around Mauritian commerce</h3>
+            <p>Category relevance, delivery framing, and seller positioning are shaped for local behaviour and expectations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="big-stat">01</div>
+            <h3>Verified-first marketplace</h3>
+            <p>Zilo puts trust signals at the center of discovery instead of treating them like an afterthought.</p>
+          </div>
+          <div class="stat-card">
+            <div class="big-stat">02</div>
+            <h3>Island-wide relevance</h3>
+            <p>Built to feel local without sacrificing a premium digital experience or modern brand quality.</p>
+          </div>
+          <div class="stat-card">
+            <div class="big-stat">03</div>
+            <h3>Scalable identity</h3>
+            <p>The system feels Mauritian today, but the branding is clean enough to scale beyond one market.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sell">
+      <div class="container">
+        <div class="seller-banner">
+          <div>
+            <div class="eyebrow" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.08); color:rgba(255,255,255,0.84); box-shadow:none; margin-bottom:14px;">
+              <span class="eyebrow-dot"></span>
+              Grow with a more trusted marketplace
+            </div>
+            <h2 style="margin:0; font-size:clamp(2rem, 4vw, 3.2rem); letter-spacing:-0.05em;">Sell on Zilo</h2>
+            <p>Join a curated group of sellers building a cleaner and more reliable shopping experience across Mauritius. Better visibility, stronger trust, and a more modern storefront.</p>
+          </div>
+          <div>
+            <a href="#" class="btn btn-primary">Apply as a Seller</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="newsletter">
+          <div>
+            <h2 style="margin:0; font-size:clamp(1.6rem, 3vw, 2.4rem); letter-spacing:-0.05em;">Stay close to the launch</h2>
+            <p>Get early updates on new sellers, curated drops, and marketplace developments as Zilo grows.</p>
+          </div>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" />
+            <button class="btn btn-primary" type="submit">Join Updates</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-shell">
+        <div>© 2026 Zilo. Trusted Shopping, Simplified.</div>
+        <div class="footer-links">
+          <a href="#">About</a>
+          <a href="#shop">Shop</a>
+          <a href="#sell">Sell on Zilo</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
